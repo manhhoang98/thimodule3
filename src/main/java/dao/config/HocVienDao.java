@@ -97,9 +97,9 @@ public class HocVienDao {
         }
     }
 
-    public static void editProduct(HocVien hocVien) {
+    public static void editHocVien(HocVien hocVien) {
         try{
-            String sql = "UPDATE `login_casestudy3`.`product` SET `id`=?, `name` = ?, `img` = ?, `price` = ?, `amount` = ?, `describe` = ?, `id_category` = ? WHERE (`id` = ?)";
+            String sql = "UPDATE `login_casestudy3`.`product` SET  `name` = ?, `address` = ?, `dateofbirth` = ?, `phone` = ?, `email` = ?, `idClassRoom` = ? WHERE (`id` = ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,hocVien.getName());
             preparedStatement.setString(2,hocVien.getAddress());
@@ -107,6 +107,7 @@ public class HocVienDao {
             preparedStatement.setString(4,hocVien.getPhone());
             preparedStatement.setString(5,hocVien.getEmail());
             preparedStatement.setInt(6,hocVien.getClassRoom());
+            preparedStatement.setInt(7,hocVien.getId());
             preparedStatement.execute();
         }catch (SQLException throwables) {
             throwables.printStackTrace();

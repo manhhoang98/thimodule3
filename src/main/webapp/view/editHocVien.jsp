@@ -22,27 +22,31 @@
         <div class="panel-heading">
             <h2 class="text-center">Add new student</h2>
         </div>
-        <form method="post" action="/home?action=create">
+        <form method="post" action="/home?action=edit">
             <div class="panel-body">
                 <div class="form-group">
+                    <label for="id">Id Hoc Viên</label>
+                    <input required="true" type="text" class="form-control" name="id" id="id" value="${hocvien.id}">
+                </div>
+                <div class="form-group">
                     <label for="usr">Name</label>
-                    <input required="true" type="text" class="form-control" name="name" id="usr" placeholder="Enter Name">
+                    <input required="true" type="text" class="form-control" name="name" id="usr" placeholder="Enter Name" value="${hocvien.name}">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Email Address</label>
-                    <input required="true" type="text" class="form-control" id="pwd" name="email" placeholder="Enter Email">
+                    <input required="true" type="text" class="form-control" id="pwd" name="email" placeholder="Enter Email" value="${hocvien.email}">
                 </div>
                 <div class="form-group">
                     <label for="brt">Date of Birth</label>
-                    <input required="true" type="date" class="form-control" name="date" id="brt" placeholder=>
+                    <input required="true" type="date" class="form-control" name="date" id="brt" placeholder="Date" value="${hocvien.date}">
                 </div>
                 <div class="form-group">
                     <label for="add">Address</label>
-                    <input type="text" class="form-control" id="add" name="address" placeholder="Enter Address">
+                    <input type="text" class="form-control" id="add" name="address" placeholder="Enter Address" value="${hocvien.address}">
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone number</label>
-                    <input required="true" type="number" class="form-control" id="phone" name="phonenumber" placeholder="Enter PhoneNumber">
+                    <input required="true" type="number" class="form-control" id="phone" name="phone" placeholder="Enter PhoneNumber" value="${hocvien.phone}">
                 </div>
 
                 <div class="form-group">

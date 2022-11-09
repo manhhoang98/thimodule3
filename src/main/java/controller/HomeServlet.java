@@ -7,12 +7,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ClassRoom;
 import model.HocVien;
 import service.ClassRoomService;
 import service.HocVienService;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
@@ -22,7 +24,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        int id = Integer.parseInt(req.getParameter("id"));
+
 
         if (action == null) {
             action = "";
@@ -30,16 +32,19 @@ public class HomeServlet extends HttpServlet {
         RequestDispatcher requestDispatcher;
         switch (action) {
             case "edit":
-                for (HocVien p: HocVienDao.getAll()) {
-                    if (p.getId() == id){
-                        req.setAttribute("hocvien", p);
-                    }
-                }
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/editHocVien.jsp");
-                dispatcher.forward(req,resp);
+                int idHocVien = Integer.parseInt(req.getParameter("id"));
+                HocVien hocVien = HocVienService.returnHocVien(idHocVien);
+                req.setAttribute("hocvien", hocVien);
+
+                List<ClassRoom> studentClasses = classRoomService.getAll();
+                req.setAttribute("listClass", studentClasses);
+
+                RequestDispatcher requestDispatcher1 = req.getRequestDispatcher("/view/editHocVien.jsp");
+                requestDispatcher1.forward(req, resp);
                 break;
             case "delete":
-                HocVienDao.deleteHocVien(id);
+                int id1 = Integer.parseInt(req.getParameter("id"));
+                HocVienDao.deleteHocVien(id1);
                 resp.sendRedirect("/home");
                 break;
             case "create":
@@ -67,14 +72,17 @@ public class HomeServlet extends HttpServlet {
         switch (action) {
             case "edit":
                 int id = Integer.parseInt(req.getParameter("id"));
-                String name = req.getParameter("name");
-                String img = req.getParameter("img");
-                double price = Double.parseDouble(req.getParameter("price"));
-                int amount = Integer.parseInt(req.getParameter("amount"));
-                String describe = req.getParameter("describe");
-                int id_category = Integer.parseInt(req.getParameter("id_category"));
-                HocVienDao.edit(id ,new Product(id,name,img,price,amount,describe,id_category));
-                resp.sendRedirect("/product");
+                String name1 = req.getParameter("name");
+                String address1 = req.getParameter("address");
+                LocalDate date1 = LocalDate.parse(req.getParameter("date"));
+                String phone1 = req.getParameter("phone");
+                String email1 = req.getParameter("email");
+                int idClassRoom1 = Integer.parseInt(req.getParameter("idClassRoom"));
+                HocVien hocVien = new HocVien(id,name1, address1, date1, phone1, email1, idClassRoom1);
+                HocVienDao.editHocVien(hocVien);
+                RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/home");
+                requestDispatcher2.forward(req, resp);
+                break;
 
             case "create":
                 String name = req.getParameter("name");

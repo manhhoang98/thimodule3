@@ -50,7 +50,7 @@
                 <td>${hv.email}</td>
                 <td>${hv.address}</td>
                 <td style="text-align: center">
-                    <a style="text-align: center" type="button" class="btn btn-warning" href="/edit?id=${hv.id}" >Edit</a>
+                    <a style="text-align: center" type="button" class="btn btn-warning" href="/home?action=edit&id=${hv.id}" >Edit</a>
                     <a style="text-align: center" type="button" class="btn btn-danger" href="/home?action=delete&id=${hv.id}">Delete</a>
                 </td>
             </tr>
