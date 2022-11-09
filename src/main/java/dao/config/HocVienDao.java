@@ -59,7 +59,7 @@ public class HocVienDao {
 
 
     public static List<HocVien> findByName(String nameFind) {
-        String find = "SELECT hocvien.*, classroom.name as classname FROM thuthuchanh_module3.hocvien join classroom on hocvien.idClassroom = classroom.id\n" +
+        String find = "SELECT hocvien.*, classroom.name as classname FROM thuthuchanh_module3.hocvien join classroom on hocvien.idClassRoom = classroom.id\n" +
                 "where hocvien.name like '%"+nameFind+"%\'";
         try {
             Statement statement = connection.createStatement();
@@ -97,9 +97,9 @@ public class HocVienDao {
         }
     }
 
-    public static void editHocVien(HocVien hocVien) {
+    public static void editHocVien(int id,HocVien hocVien) {
         try{
-            String sql = "UPDATE `login_casestudy3`.`product` SET  `name` = ?, `address` = ?, `dateofbirth` = ?, `phone` = ?, `email` = ?, `idClassRoom` = ? WHERE (`id` = ?)";
+            String sql = "UPDATE `thuthuchanh_module3`.`hocvien` SET  `name` = ?, `address` = ?, `dateofbirth` = ?, `phone` = ?, `email` = ?, `idClassRoom` = ? WHERE (`id` = ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,hocVien.getName());
             preparedStatement.setString(2,hocVien.getAddress());

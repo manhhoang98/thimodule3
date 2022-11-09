@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">Phone number</label>
-                <input required="true" type="number" class="form-control" id="phone" name="phonenumber" placeholder="Enter PhoneNumber">
+                <input required="true" type="number" class="form-control" id="phone" name="phone" placeholder="Enter PhoneNumber">
             </div>
 
             <div class="form-group">

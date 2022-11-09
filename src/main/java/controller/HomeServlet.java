@@ -32,15 +32,15 @@ public class HomeServlet extends HttpServlet {
         RequestDispatcher requestDispatcher;
         switch (action) {
             case "edit":
-                int idHocVien = Integer.parseInt(req.getParameter("id"));
-                HocVien hocVien = HocVienService.returnHocVien(idHocVien);
-                req.setAttribute("hocvien", hocVien);
-
-                List<ClassRoom> studentClasses = classRoomService.getAll();
-                req.setAttribute("listClass", studentClasses);
-
-                RequestDispatcher requestDispatcher1 = req.getRequestDispatcher("/view/editHocVien.jsp");
-                requestDispatcher1.forward(req, resp);
+                int id = Integer.parseInt(req.getParameter("id"));
+                for (HocVien p: HocVienDao.getAll()) {
+                    if (p.getId() == id){
+                        req.setAttribute("hocvien", p);
+                    }
+                }
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/view/editHocVien.jsp");
+                req.setAttribute("listClass", classRoomService.getAll());
+                dispatcher.forward(req,resp);
                 break;
             case "delete":
                 int id1 = Integer.parseInt(req.getParameter("id"));
@@ -78,10 +78,8 @@ public class HomeServlet extends HttpServlet {
                 String phone1 = req.getParameter("phone");
                 String email1 = req.getParameter("email");
                 int idClassRoom1 = Integer.parseInt(req.getParameter("idClassRoom"));
-                HocVien hocVien = new HocVien(id,name1, address1, date1, phone1, email1, idClassRoom1);
-                HocVienDao.editHocVien(hocVien);
-                RequestDispatcher requestDispatcher2 = req.getRequestDispatcher("/home");
-                requestDispatcher2.forward(req, resp);
+                HocVienDao.editHocVien(id,new HocVien(id,name1, address1, date1, phone1, email1, idClassRoom1));
+                resp.sendRedirect("/home");
                 break;
 
             case "create":
